@@ -1,0 +1,90 @@
+1.
+user1 = User.objects.create(username='Антон') 
+user2 = User.objects.create(username='Наталья') 
+
+
+2.
+author1 = Author.objects.create(user=user1)
+author2 = Author.objects.create(user=user2)
+
+3.
+category1 = Category.objects.create(category = 'Природа') 
+category2 = Category.objects.create(category = 'Технологии') 
+category3 = Category.objects.create(category = 'Семья') 
+category4 = Category.objects.create(category = 'Покупки') 
+
+4.
+article1 = Post.objects.create(title='Лучшие смартфоны 2025 года',
+text='Прежде чем переходить к нашему рейтингу смартфонов 2024-2025 годов, расскажем, по каким критериям правильно подбирать мобильную технику.',
+type='AR', author=author1)
+
+article2 = Post.objects.create(title='Земля касается каждого', text='Этот день – повод вспомнить о важности устойчивого использования природных ресурсов нашей планеты.',
+type='AR', author=author2)
+
+news1 = Post.objects.create(title='Банки с начала года резко увеличили долю отказов по ипотеке',
+text='В феврале 2025 года банки отклонили свыше 56% обращений за ипотекой, подсчитали в НБКИ. В декабре одобрение получили больше половины потенциальных заемщиков.
+Банки ужесточают требования к клиентам, несмотря на спад рынка',type='NS', author=author2)
+
+5.
+article1.categories.add(category2, category4, category3)
+article2.categories.add(category1, category3)
+news1.categories.add(category3, category3)
+
+6.
+comment1 = Comment.objects.create(text='Очень информативная статья', post=article1, user=user2)
+comment2 = Comment.objects.create(text='Захотелось посадить несколько деревьем на своем дворе', post=article2, user=user1)
+comment3 = Comment.objects.create(text='Какой ужас!', post=news1, user=user1)
+comment4 = Comment.objects.create(text='Не было печали...', post=news1, user=user2)
+
+7.
+article1.like()
+article1.like()
+article1.like()
+article1.dislike()
+article2.like()
+comment1.like()
+comment1.like()
+comment1.like()
+comment1.like()
+comment2.like()
+comment2.like()
+comment2.like()
+comment2.dislike()
+comment3.like()
+
+8.
+author1.update_rating()
+author2.update_rating()
+
+9.
+Author.objects.all().order_by('-rating').values().first()
+
+10.
+best_post = Post.objects.all().order_by('-rating').first()
+best_post.data_create
+best_post.rating
+best_post.title
+best_post.author.user.username
+best_post.preview()
+
+11.
+Comment.objects.filter(post=best_post.pk).values('datetime_create', 'user', 'rating', 'text') 
+
+
+Присвоение объектов таблицы в переменные:
+
+user1 = User.objects.get(username='Антон') 
+user2 = User.objects.get(username='Наталья')
+author1 = Author.objects.get(user=user1)
+author2 = Author.objects.get(user=user2)
+category1 = Category.objects.get(category = 'Природа') 
+category2 = Category.objects.get(category = 'Технологии') 
+category3 = Category.objects.get(category = 'Семья') 
+category4 = Category.objects.get(category = 'Покупки') 
+article1 = Post.objects.get(pk = 1)
+article2 = Post.objects.get(pk = 2)
+news1 = Post.objects.get(pk = 3)
+comment1 = Comment.objects.get(pk = 1)
+comment2 = Comment.objects.get(pk = 2)
+comment3 = Comment.objects.get(pk = 3)
+comment4 = Comment.objects.get(pk = 4)
