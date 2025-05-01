@@ -1,0 +1,28 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+Products
+{% endblock title %}
+
+{% block content %}
+   <h1>Все новости</h1>
+   <h3>Количество новостей: {{ news|length }}</h3>
+
+   <hr>
+       <table>
+           <tr>
+               <td>Заголовок</td>
+               <td>Дата публикации</td>
+               <td>Описание</td>
+           </tr>
+
+           {% for post in news %}
+           <tr>
+               <td>{{ post.title }}</td>
+               <td>{{ post.data_create|date:"d/m/Y" }}</td>
+               <td>{{ post.text|truncatewords:21 }}</td>
+           </tr>
+           {% endfor %}
+
+       </table>
+{% endblock content %}
