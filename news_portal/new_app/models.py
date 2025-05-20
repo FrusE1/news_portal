@@ -28,7 +28,7 @@ class Post(models.Model):
     text = models.TextField()
     rating = models.IntegerField(default = 0)
     type = models.CharField(max_length = 2, choices = POST_TYPE, default = news)
-    data_create = models.DateField(auto_now_add = True)
+    data_create = models.DateField()
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     categories = models.ManyToManyField(Category, through='PostCategory')
 
